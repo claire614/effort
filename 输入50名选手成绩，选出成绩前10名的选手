@@ -1,0 +1,55 @@
+
+#include "stdafx.h"
+#include <iostream>
+#include <typeinfo> 
+#define NUM_PERSON 50 //把志愿者的数量定义为常数，可以随时进行修改
+
+using namespace std;
+
+typedef struct
+{
+	char no[10];
+	float grade;
+}Person;
+
+int main()
+{
+	Person person[NUM_PERSON];
+	int i,j;
+	for (i = 0; i < NUM_PERSON; i++)
+	{
+		cout << "学生" << i << "的学号：";
+		cin >> person[i].no;
+		cout << "学生" << i << "的成绩：";
+		cin>> person[i].grade;//输入各个选手的学号和初试成绩
+		cout << endl;
+	}
+
+	for (i = 0; i < NUM_PERSON; i++)
+	{
+		for (j = NUM_PERSON-1; j >= i; j--)//冒泡，从大到小排序，最大数冒到最前面
+		{
+			if (person[j + 1].grade > person[j].grade)
+			{
+				Person t_per = person[j + 1]; //直接交换实例对象即可，学号和姓名也都会随之交换
+				person[j+1] = person[j];
+				person[j] = t_per;
+			}
+		}
+	}
+
+	for (i = 0; i < 10; i++)
+	{
+		cout << "输出前10名选手的学号和成绩：" << endl;
+		cout << person[i].no << "号：" << person[i].grade << endl;
+	}
+	int e; cin >> e;
+
+    return 0;
+}
+
+/*
+题目：
+某大学进行志愿者选拔工作，对报名的50名选手进行初试，初试分数在前10名的选手入围进入复试。
+请编写程序实现：从键盘输入这50名选手的学号和初试成绩，输出入围的10名选手的学号和初试成绩。
+*/
